@@ -5,13 +5,8 @@ public class Cell extends BoardItem {
     public Cell(int x, int y, boolean isWall, boolean hasPacDot) {
         super(x, y);
         if (isWall && hasPacDot)
-            try {
-                throw new Exception("Wall cannot have PacDot"); // :)
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
-        this.isWall = isWall;
+            this.isWall = isWall;
         this.hasPacDot = hasPacDot;
     }
 
@@ -23,24 +18,21 @@ public class Cell extends BoardItem {
         return hasPacDot;
     }
 
-    public void eatPacDot() {
+    public void eatPacDot() throws Exception {
         if (!hasPacDot) {
-            try {
-                throw new Exception("There is no PacDot in this Cell");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            throw new Exception("There is no PacDot in this Cell");
+
         }
 
         hasPacDot = false;
     }
 
-    public void drawWall(){
+    public void drawWall() {
         StdDraw.setPenColor(StdDraw.GRAY);
-        StdDraw.filledRectangle(x-0.5, y-0.5, 1, 1);
+        StdDraw.filledRectangle(x - 0.5, y - 0.5, 1, 1);
     }
 
-    public void drawPacDot(){
+    public void drawPacDot() {
         StdDraw.setPenColor(StdDraw.MAGENTA);
         StdDraw.filledCircle(x, y, 0.1);
     }
