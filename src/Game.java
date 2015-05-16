@@ -24,7 +24,6 @@ public class Game {
             for (int j = 0; j < SIZE_Y; j++) {
                 boolean isWall = (StdRandom.uniform() <= 0.035) && (i != player1.getX() || j != player1.getY()) && (i != player2.getX() || j != player2.getY());
                 boolean hasPacDot = !isWall && (i != player1.getX() || j != player1.getY()) && (i != player2.getX() || j != player2.getY());
-
                 board[i][j] = new Cell(i, j, isWall, hasPacDot);
             }
         }
@@ -35,58 +34,34 @@ public class Game {
             player2.repaint();
             for (int i = 0; i < SIZE_X; i++) {
                 for (int j = 0; j < SIZE_Y; j++) {
-                    if (board[i][j].hasPacDot()) board[i][j].repaint();
-                    if (board[i][j].isWall()) board[i][j].repaint();
+                    board[i][j].repaint();
                 }
             }
 
+
             if (StdDraw.isKeyPressed(KeyEvent.VK_LEFT)) {
-                if (player2.getX() >= 1)
-                    if (!board[player2.getX() - 1][player2.getY()].isWall())
-                        player2.moveLeft(1);
-                    else continue;
+                player2.moveLeft(1);
             }
             if (StdDraw.isKeyPressed(KeyEvent.VK_RIGHT)) {
-                if (player2.getX() <= 30)
-                    if (!board[player2.getX() + 1][player2.getY()].isWall())
-                        player2.moveRight(1);
-                    else continue;
+                player2.moveRight(1);
             }
             if (StdDraw.isKeyPressed(KeyEvent.VK_UP)) {
-                if (player2.getY() <= 22)
-                    if (!board[player2.getX()][player2.getY() + 1].isWall())
-                        player2.moveUp(1);
-                    else continue;
+                player2.moveUp(1);
             }
             if (StdDraw.isKeyPressed(KeyEvent.VK_DOWN)) {
-                if (player2.getY() >= 1)
-                    if (!board[player2.getX()][player2.getY() - 1].isWall())
-                        player2.moveDown(1);
-                    else continue;
+                player2.moveDown(1);
             }
             if (StdDraw.isKeyPressed(KeyEvent.VK_A)) {
-                if (player1.getX() >= 1)
-                    if (!board[player1.getX() - 1][player1.getY()].isWall())
-                        player1.moveLeft(2);
-                    else continue;
+                player1.moveLeft(2);
             }
             if (StdDraw.isKeyPressed(KeyEvent.VK_S)) {
-                if (player1.getY() >= 1)
-                    if (!board[player1.getX()][player1.getY() - 1].isWall())
-                        player1.moveDown(2);
-                    else continue;
+                player1.moveDown(2);
             }
             if (StdDraw.isKeyPressed(KeyEvent.VK_D)) {
-                if (player1.getX() <= 30)
-                    if (!board[player1.getX() + 1][player1.getY()].isWall())
-                        player1.moveRight(2);
-                    else continue;
+                player1.moveRight(2);
             }
             if (StdDraw.isKeyPressed(KeyEvent.VK_W)) {
-                if (player1.getY() <= 22)
-                    if (!board[player1.getX()][player1.getY() + 1].isWall())
-                        player1.moveUp(2);
-                    else continue;
+                player1.moveUp(2);
             }
 
             try {
@@ -100,7 +75,45 @@ public class Game {
                 e.printStackTrace();
             }
 
-            StdDraw.show(50);
+            if (player1.dir == 0) {
+                if (player1.getX() >= 1)
+                    if (!board[player1.getX() - 1][player1.getY()].isWall())
+                        player1.x -= 1;
+            } else if (player1.dir == 1) {
+                if (player1.getY() <= 22)
+                    if (!board[player1.getX()][player1.getY() + 1].isWall())
+                        player1.y += 1;
+            } else if (player1.dir == 2) {
+                if (player1.getX() <= 30)
+                    if (!board[player1.getX() + 1][player1.getY()].isWall())
+                        player1.x += 1;
+            } else if (player1.dir == 3) {
+                if (player1.getY() >= 1)
+                    if (!board[player1.getX()][player1.getY() - 1].isWall())
+                        player1.y -= 1;
+            }
+
+            if (player2.dir == 0) {
+                if (player2.getX() >= 1)
+                    if (!board[player2.getX() - 1][player2.getY()].isWall())
+                        player2.x -= 1;
+            } else if (player2.dir == 1) {
+                if (player2.getY() <= 22)
+                    if (!board[player2.getX()][player2.getY() + 1].isWall())
+                        player2.y += 1;
+            } else if (player2.dir == 2) {
+                if (player2.getX() <= 30)
+                    if (!board[player2.getX() + 1][player2.getY()].isWall())
+                        player2.x += 1;
+            } else if (player2.dir == 3) {
+                if (player2.getY() >= 1)
+                    if (!board[player2.getX()][player2.getY() - 1].isWall())
+                        player2.y -= 1;
+            }
+
+//            if (player1.dir == -1) continue;
+//            if (player2.dir == -1) continue;
+            StdDraw.show(100);
         }
     }
 
