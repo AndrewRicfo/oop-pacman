@@ -26,13 +26,13 @@ public class Cell extends BoardItem {
         hasPacDot = false;
     }
 
-    public void drawWall() {
-        StdDraw.setPenColor(StdDraw.GRAY);
-        StdDraw.filledRectangle(x, y, 0.5, 0.5);
-    }
-
-    public void drawPacDot() {
-        StdDraw.setPenColor(StdDraw.MAGENTA);
-        StdDraw.filledCircle(x, y, 0.1);
+    public void repaint() {
+        if (isWall) {
+            StdDraw.setPenColor(StdDraw.GRAY);
+            StdDraw.filledRectangle(x, y, 0.5, 0.5);
+        } else if (hasPacDot){
+            StdDraw.setPenColor(StdDraw.MAGENTA);
+            StdDraw.filledCircle(x, y, 0.1);
+        }
     }
 }

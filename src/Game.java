@@ -35,8 +35,8 @@ public class Game {
             player2.repaint();
             for (int i = 0; i < SIZE_X; i++) {
                 for (int j = 0; j < SIZE_Y; j++) {
-                    if (board[i][j].hasPacDot()) board[i][j].drawPacDot();
-                    if (board[i][j].isWall()) board[i][j].drawWall();
+                    if (board[i][j].hasPacDot()) board[i][j].repaint();
+                    if (board[i][j].isWall()) board[i][j].repaint();
                 }
             }
 
