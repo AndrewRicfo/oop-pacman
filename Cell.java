@@ -4,9 +4,8 @@ public class Cell extends BoardItem {
 
     public Cell(int x, int y, boolean isWall, boolean hasPacDot) {
         super(x, y);
-        if (isWall && hasPacDot)
 
-            this.isWall = isWall;
+        this.isWall = isWall;
         this.hasPacDot = hasPacDot;
     }
 
@@ -29,7 +28,7 @@ public class Cell extends BoardItem {
 
     public void drawWall() {
         StdDraw.setPenColor(StdDraw.GRAY);
-        StdDraw.filledRectangle(x - 0.5, y - 0.5, 1, 1);
+        StdDraw.filledRectangle(x, y, 0.5, 0.5);
     }
 
     public void drawPacDot() {
