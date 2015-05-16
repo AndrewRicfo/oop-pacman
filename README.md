@@ -4,7 +4,7 @@ We invite you to play the well-known legendary game "PacMan" with innovative mul
 
 ##Сlass diagram:
 
-![graph](/images/graph.jpg)
+![graph](/src/images/graph.jpg)
 
 ##Squad:
 
