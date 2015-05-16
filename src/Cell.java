@@ -22,7 +22,6 @@ public class Cell extends BoardItem {
             throw new Exception("There is no PacDot in this Cell");
 
         }
-
         hasPacDot = false;
     }
 
@@ -30,7 +29,7 @@ public class Cell extends BoardItem {
         if (isWall) {
             StdDraw.setPenColor(StdDraw.GRAY);
             StdDraw.filledRectangle(x, y, 0.5, 0.5);
-        } else if (hasPacDot){
+        } else if (hasPacDot) {
             StdDraw.setPenColor(StdDraw.MAGENTA);
             StdDraw.filledCircle(x, y, 0.1);
         }

@@ -1,6 +1,6 @@
 public class PacMan extends BoardItem implements Character {
 
-    //    boolean alive = true;
+    boolean alive = true;
     protected String pic;
     public int dir = -1;
 

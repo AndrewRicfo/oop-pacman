@@ -1,4 +1,3 @@
-
 import java.awt.event.KeyEvent;
 
 public class Game {
@@ -6,10 +5,12 @@ public class Game {
     protected static final int CELL_SIZE_PX = 25;
     protected static final int SIZE_X = 32;
     protected static final int SIZE_Y = 24;
+    public static PacMan player1, player2;
+    public static int pacDotCounter = 0;
 
 
     public static void main(String[] args) {
-        PacMan player1, player2;
+
         StdDraw.setCanvasSize(SIZE_X * CELL_SIZE_PX, SIZE_Y * CELL_SIZE_PX);
         StdDraw.setXscale(-0.5, SIZE_X - 0.5);
         StdDraw.setYscale(-0.5, SIZE_Y - 0.5);
@@ -20,9 +21,10 @@ public class Game {
 
         for (int i = 0; i < SIZE_X; i++) {
             for (int j = 0; j < SIZE_Y; j++) {
-                boolean isWall = (StdRandom.uniform() <= 0.035) && (i != player1.getX() || j != player1.getY()) && (i != player2.getX() || j != player2.getY());
+                boolean isWall = (StdRandom.uniform() <= 0.04) && (i != player1.getX() || j != player1.getY()) && (i != player2.getX() || j != player2.getY());
                 boolean hasPacDot = !isWall && (i != player1.getX() || j != player1.getY()) && (i != player2.getX() || j != player2.getY());
                 board[i][j] = new Cell(i, j, isWall, hasPacDot);
+                if (board[i][j].hasPacDot()) pacDotCounter++;
             }
         }
 
@@ -64,11 +66,15 @@ public class Game {
 
             try {
                 board[player2.getX()][player2.getY()].eatPacDot();
+                pacDotCounter -= 1;
+                System.out.println(pacDotCounter);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             try {
                 board[player1.getX()][player1.getY()].eatPacDot();
+                pacDotCounter -= 1;
+                System.out.println(pacDotCounter);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -108,8 +114,13 @@ public class Game {
                     if (!board[player2.getX()][player2.getY() - 1].isWall())
                         player2.y -= 1;
             }
-
+            if (endOfGame()) break;
             StdDraw.show(60);
         }
+        System.out.println("THA END!");
+    }
+
+    private static boolean endOfGame() {
+        return (!player1.alive && !player2.alive) || pacDotCounter == 0;
     }
 }
