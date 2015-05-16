@@ -15,7 +15,6 @@ public class PacMan extends BoardItem implements Character {
     }
 
     public void moveLeft(int type) {
-//        x -= 1;
         if (type == 1) {
             pic = "images/left1.png";
         } else {
@@ -26,7 +25,6 @@ public class PacMan extends BoardItem implements Character {
     }
 
     public void moveRight(int type) {
-//        x += 1;
         if (type == 1) {
             pic = "images/right1.png";
         } else {
@@ -37,7 +35,6 @@ public class PacMan extends BoardItem implements Character {
     }
 
     public void moveUp(int type) {
-//        y += 1;
         if (type == 1) {
             pic = "images/up1.png";
         } else {
@@ -48,7 +45,6 @@ public class PacMan extends BoardItem implements Character {
     }
 
     public void moveDown(int type) {
-//        y -= 1;
         if (type == 1) {
             pic = "images/down1.png";
         } else {

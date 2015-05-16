@@ -6,17 +6,15 @@ public class Game {
     protected static final int CELL_SIZE_PX = 25;
     protected static final int SIZE_X = 32;
     protected static final int SIZE_Y = 24;
-    protected static PacMan player1, player2;
 
 
     public static void main(String[] args) {
+        PacMan player1, player2;
         StdDraw.setCanvasSize(SIZE_X * CELL_SIZE_PX, SIZE_Y * CELL_SIZE_PX);
         StdDraw.setXscale(-0.5, SIZE_X - 0.5);
         StdDraw.setYscale(-0.5, SIZE_Y - 0.5);
         Cell[][] board = new Cell[SIZE_X][SIZE_Y];
-//        StdDraw.clear(StdDraw.BLACK);
         player1 = new PacMan(0, 23, 2);
-
         player2 = new PacMan(31, 0, 1);
 
 
@@ -111,10 +109,7 @@ public class Game {
                         player2.y -= 1;
             }
 
-//            if (player1.dir == -1) continue;
-//            if (player2.dir == -1) continue;
-            StdDraw.show(100);
+            StdDraw.show(60);
         }
     }
-
 }
