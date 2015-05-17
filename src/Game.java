@@ -17,11 +17,11 @@ public class Game {
     public void start(){
          init();
 
-        int c = -1;
+        int c = 0;
 
         while (true) {
             handleKeys();
-            if (c % 7 == 0) {
+            if (c % 6 == 0) {
                 movePlayers();
                 eatPacDots();
                 repaintAll();
@@ -135,7 +135,7 @@ public class Game {
     }
 
     private void init() {
-        StdDraw.setCanvasSize(SIZE_X * CELL_SIZE_PX, SIZE_Y * CELL_SIZE_PX);
+        StdDraw.setCanvasSize(SIZE_X * CELL_SIZE_PX, SIZE_Y * CELL_SIZE_PX +2);
         StdDraw.setXscale(-0.5, SIZE_X - 0.5);
         StdDraw.setYscale(-0.5, SIZE_Y - 0.5);
         player1 = new PacMan(0, 23, 2);

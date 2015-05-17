@@ -28,7 +28,7 @@ public class Cell extends BoardItem {
     public void repaint() {
         if (isWall) {
             StdDraw.setPenColor(StdDraw.GRAY);
-            StdDraw.filledRectangle(x, y, 0.5, 0.5);
+            StdDraw.filledRectangle(x, y, 0.52, 0.52);
         } else if (hasPacDot) {
             StdDraw.setPenColor(StdDraw.MAGENTA);
             StdDraw.filledCircle(x, y, 0.1);
