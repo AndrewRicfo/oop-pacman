@@ -116,14 +116,14 @@ public class Game {
                     if (!board[player2.getX()][player2.getY() - 1].isWall())
                         player2.y -= 1;
             }
-            if (endOfGame()) break;
             StdDraw.show(60);
+            if (endOfGame()) break;
         }
-        StdDraw.clear(StdDraw.LIGHT_GRAY);
-        StdDraw.text(5, 15, "Player 1 reached " + (player1.score - 1) + " pac dots");
-        StdDraw.text(26, 15, "Player 2 reached " + (player2.score - 1) + " pac dots");
-        System.out.println(player1.score);
-        System.out.println(player2.score);
+        StdDraw.clear(StdDraw.WHITE);
+        StdDraw.setPenColor(StdDraw.BLACK);
+        StdDraw.text(5, 15, "Player 1 ate " + player1.score + " pac dots");
+        StdDraw.text(26, 15, "Player 2 ate " + player2.score + " pac dots");
+        StdDraw.show();
     }
 
     private static boolean endOfGame() {

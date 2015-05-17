@@ -3,7 +3,7 @@ public class PacMan extends BoardItem implements Character {
     boolean alive = true;
     protected String pic;
     public int dir = -1;
-    public int score = 1;
+    public int score = 0;
 
     public PacMan(int x, int y, int type) {
         super(x, y);
