@@ -67,6 +67,7 @@ public class Game {
             try {
                 board[player2.getX()][player2.getY()].eatPacDot();
                 pacDotCounter -= 1;
+                player2.increaseScore();
                 System.out.println(pacDotCounter);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -74,6 +75,7 @@ public class Game {
             try {
                 board[player1.getX()][player1.getY()].eatPacDot();
                 pacDotCounter -= 1;
+                player1.increaseScore();
                 System.out.println(pacDotCounter);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -117,7 +119,11 @@ public class Game {
             if (endOfGame()) break;
             StdDraw.show(60);
         }
-        System.out.println("THA END!");
+        StdDraw.clear(StdDraw.LIGHT_GRAY);
+        StdDraw.text(5, 15, "Player 1 reached " + (player1.score - 1) + " pac dots");
+        StdDraw.text(26, 15, "Player 2 reached " + (player2.score - 1) + " pac dots");
+        System.out.println(player1.score);
+        System.out.println(player2.score);
     }
 
     private static boolean endOfGame() {
