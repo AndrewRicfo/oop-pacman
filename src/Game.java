@@ -1,3 +1,5 @@
+import org.junit.Test;
+
 import java.awt.event.KeyEvent;
 
 public class Game {
@@ -14,8 +16,9 @@ public class Game {
         Game game = new Game();
         game.start();
     }
-    public void start(){
-         init();
+
+    public void start() {
+        init();
 
         int c = 0;
 
@@ -29,16 +32,33 @@ public class Game {
             StdDraw.show(20);
             c += 1;
             if (endOfGame()) break;
-    }
+        }
         showScore();
     }
 
-    private void showScore() {
+    public void showScore() {
         StdDraw.clear(StdDraw.WHITE);
         StdDraw.setPenColor(StdDraw.BLACK);
-        StdDraw.text(5,15,"Player 1 ate " + player1.score+" pac dots");
-        StdDraw.text(26,15,"Player 2 ate " + player2.score + " pac dots");
-        StdDraw.show();
+        try {
+            if (player1.score == 0) throw new customException();
+        } catch (customException e) {
+            StdDraw.text(13, 12, "Player 2 is an absolute winner!");
+            StdDraw.show();
+        }
+
+        try {
+            if (player2.score == 0)
+                throw new customException();
+        } catch (customException e) {
+            StdDraw.text(13, 12, "Player 1 is an absolute winner!");
+            StdDraw.show();
+        }
+        if((player1.score > 0) && (player2.score > 0)) {
+            StdDraw.text(5, 15, "Player 1 ate " + player1.score + " pac dots");
+            StdDraw.text(26, 15, "Player 2 ate " + player2.score + " pac dots");
+            StdDraw.text(15, 12, "Player 1/Player 2 ratio: " + player1.score / player2.score);
+            StdDraw.show();
+        }
     }
 
     private void repaintAll() {
@@ -57,6 +77,7 @@ public class Game {
             board[player2.getX()][player2.getY()].eatPacDot();
             pacDotCounter -= 1;
             player2.increaseScore();
+//            StdAudio.play("src/sounds/eatpacmandot.wav");           // dobavit' vtoromu kentu zvuk i nastroit' chastotu
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,6 +85,7 @@ public class Game {
             board[player1.getX()][player1.getY()].eatPacDot();
             pacDotCounter -= 1;
             player1.increaseScore();
+//            StdAudio.play("src/sounds/eatpacmandot.wav");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -135,13 +157,14 @@ public class Game {
     }
 
     private void init() {
-        StdDraw.setCanvasSize(SIZE_X * CELL_SIZE_PX, SIZE_Y * CELL_SIZE_PX +2);
+        StdDraw.setCanvasSize(SIZE_X * CELL_SIZE_PX, SIZE_Y * CELL_SIZE_PX + 2);
         StdDraw.setXscale(-0.5, SIZE_X - 0.5);
         StdDraw.setYscale(-0.5, SIZE_Y - 0.5);
         player1 = new PacMan(0, 23, 2);
         player2 = new PacMan(31, 0, 1);
 
         createCells();
+//        StdAudio.play("src/sounds/start.wav");
     }
 
     private void createCells() {
