@@ -39,21 +39,19 @@ public class Game {
     public void showScore() {
         StdDraw.clear(StdDraw.WHITE);
         StdDraw.setPenColor(StdDraw.BLACK);
-        try {
-            if (player1.score == 0) throw new customException();
-        } catch (customException e) {
-            StdDraw.text(13, 12, "Player 2 is an absolute winner!");
-            StdDraw.show();
-        }
+        if (player1.score == 0) StdDraw.text(13, 12, "Player 2 is an absolute winner!");
+        StdDraw.show();
+
 
         try {
             if (player2.score == 0)
                 throw new customException();
         } catch (customException e) {
             StdDraw.text(13, 12, "Player 1 is an absolute winner!");
+            e.printStackTrace();
             StdDraw.show();
         }
-        if((player1.score > 0) && (player2.score > 0)) {
+        if ((player1.score > 0) && (player2.score > 0)) {
             StdDraw.text(5, 15, "Player 1 ate " + player1.score + " pac dots");
             StdDraw.text(26, 15, "Player 2 ate " + player2.score + " pac dots");
             StdDraw.text(15, 12, "Player 1/Player 2 ratio: " + player1.score / player2.score);

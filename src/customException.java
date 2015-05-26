@@ -1,2 +1,2 @@
-public class customException extends NullPointerException {
+public class customException extends ArithmeticException {
 }
