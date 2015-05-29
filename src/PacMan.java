@@ -4,14 +4,16 @@ public class PacMan extends BoardItem implements Character {
     protected String pic;
     public int dir = -1;
     public int score = 0;
+    protected String nickname;
 
-    public PacMan(int x, int y, int type) {
+    public PacMan(int x, int y, int type, String nickname) {
         super(x, y);
         if (type == 1) {
             pic = "images/left1.png";
         } else {
             pic = "images/right2.png";
         }
+        this.nickname = nickname;
         repaint();
     }
 
@@ -61,5 +63,9 @@ public class PacMan extends BoardItem implements Character {
 
     public void increaseScore(){
         score += 1;
+    }
+
+    public String getNickname(){
+        return nickname;
     }
 }

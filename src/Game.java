@@ -1,6 +1,14 @@
-import org.junit.Test;
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
 
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Game {
 
@@ -11,14 +19,18 @@ public class Game {
     protected Cell[][] board = new Cell[SIZE_X][SIZE_Y];
     protected static int pacDotCounter = 0;
 
-
     public static void main(String[] args) {
+        if (args.length != 2) {
+            StdOut.println("Game expects 2 player names as arguments");
+            System.exit(-1);
+        }
         Game game = new Game();
-        game.start();
+        StdDraw.show();
+        game.start(args[0], args[1]);
     }
 
-    public void start() {
-        init();
+    public void start(String name1, String name2) {
+        init(name1, name2);
 
         int c = 0;
 
@@ -33,13 +45,37 @@ public class Game {
             c += 1;
             if (endOfGame()) break;
         }
+        saveScores(player1);
+        saveScores(player2);
         showScore();
     }
 
-    public void showScore() {
+    private void saveScores(PacMan player) {
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Connection c = (Connection) DriverManager.getConnection("jdbc:mysql://127.0.0.1/pacmandb?user=ricfo&password=case2607ricfo");
+            Statement s = (Statement) c.createStatement();
+            String query = "insert into pacman_table(nickname, score) values (?, ?)";
+            PreparedStatement preparedStmt = c.prepareStatement(query);
+            preparedStmt.setString(1, player.getNickname());
+            preparedStmt.setInt(2, player.score);
+            preparedStmt.execute();
+            c.close();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showScore() {
         StdDraw.clear(StdDraw.WHITE);
         StdDraw.setPenColor(StdDraw.BLACK);
-        if (player1.score == 0) StdDraw.text(13, 12, "Player 2 is an absolute winner!");
+        if (player1.score == 0) StdDraw.text(13, 12, player2.getNickname() + " is an absolute winner!");
         StdDraw.show();
 
 
@@ -47,14 +83,14 @@ public class Game {
             if (player2.score == 0)
                 throw new customException();
         } catch (customException e) {
-            StdDraw.text(13, 12, "Player 1 is an absolute winner!");
+            StdDraw.text(13, 12, player1.getNickname() + " is an absolute winner!");
             e.printStackTrace();
             StdDraw.show();
         }
         if ((player1.score > 0) && (player2.score > 0)) {
-            StdDraw.text(5, 15, "Player 1 ate " + player1.score + " pac dots");
-            StdDraw.text(26, 15, "Player 2 ate " + player2.score + " pac dots");
-            StdDraw.text(15, 12, "Player 1/Player 2 ratio: " + player1.score / player2.score);
+            StdDraw.text(5, 15, player1.getNickname() + " ate " + player1.score + " pac dots");
+            StdDraw.text(26, 15, player2.getNickname() + " ate " + player2.score + " pac dots");
+            StdDraw.text(15, 12, player1.getNickname() + "/" + player2.getNickname() + " ratio: " + (double) player1.score / player2.score);
             StdDraw.show();
         }
     }
@@ -154,12 +190,12 @@ public class Game {
         }
     }
 
-    private void init() {
+    private void init(String name1, String name2) {
         StdDraw.setCanvasSize(SIZE_X * CELL_SIZE_PX, SIZE_Y * CELL_SIZE_PX + 2);
         StdDraw.setXscale(-0.5, SIZE_X - 0.5);
         StdDraw.setYscale(-0.5, SIZE_Y - 0.5);
-        player1 = new PacMan(0, 23, 2);
-        player2 = new PacMan(31, 0, 1);
+        player1 = new PacMan(0, 23, 2, name1);
+        player2 = new PacMan(31, 0, 1, name2);
 
         createCells();
 //        StdAudio.play("src/sounds/start.wav");
